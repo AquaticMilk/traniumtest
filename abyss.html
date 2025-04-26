@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Abyss</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .question-container {
+            position: relative;
+            opacity: 0;
+            transition: opacity 2s;
+            display: none;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+            .question-container.active {
+                display: block;
+                opacity: 1;
+            }
+
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .answer-container {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .btn {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .btn:hover {
+                background-color: #fff;
+                color: #000;
+            }
+
+        .text-input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            color: #fff;
+            padding: 0.5rem;
+            font-size: 1.2rem;
+            width: 80%;
+            outline: none;
+            text-align: center;
+        }
+
+        .image-container {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            max-width: 100%;
+            height: auto;
+        }
+
+            .image-container img {
+                max-width: 100%;
+                max-height: 60vh;
+            }
+
+        .jumpscare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 999;
+            display: none;
+        }
+
+        .jumpscare-text {
+            font-size: 5rem;
+            color: #ff0000;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+
+        .jumpscare-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+        }
+
+        /* Timer display */
+        .timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        /* Fullscreen button */
+        #fullscreen-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: transparent;
+            color: #555;
+            border: 1px solid #555;
+            padding: 5px 10px;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+            #fullscreen-btn:hover {
+                opacity: 1;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Question 1 -->
+        <div class="question-container" id="q1">
+            <p class="question-text">Hello, John.</p>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-container" id="q2">
+            <p class="question-text">Let me ask you a question.</p>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-container" id="q3">
+            <p class="question-text">Are you simply the creator, or are you the content?</p>
+            <div class="answer-container">
+                <button class="btn" onclick="nextQuestion()">Creator</button>
+                <button class="btn" onclick="nextQuestion()">Content</button>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-container" id="q4">
+            <p class="question-text">What is your favorite color??</p>
+            <div class="answer-container">
+                <button class="btn" onclick="nextQuestion()">brown</button>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-container" id="q5">
+            <p class="question-text">What are you afraid of?</p>
+            <div class="answer-container">
+                <input type="text" class="text-input" id="fear-input" placeholder="Type your answer..." onkeydown="checkEnterFear(event)">
+            </div>
+        </div>
+
+        <!-- Question 5 Response -->
+        <div class="question-container" id="q5b">
+            <p class="question-text" id="fear-response">Your fear response with "and alarms" appended</p>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-container" id="q6">
+            <p class="question-text">Are you experienced in any martial arts?</p>
+            <div class="answer-container">
+                <button class="btn" onclick="nextQuestion()">Yes</button>
+                <button class="btn" onclick="nextQuestion()">No</button>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-container" id="q7">
+            <p class="question-text">Are your doors locked?</p>
+            <div class="answer-container">
+                <button class="btn" onclick="nextQuestion()">Yes</button>
+                <button class="btn" onclick="nextQuestion()">No</button>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-container" id="q8">
+            <p class="question-text">Are you sure?</p>
+            <div class="answer-container">
+                <button class="btn" onclick="nextQuestion()">Yes</button>
+                <button class="btn" onclick="nextQuestion()">No</button>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-container" id="q9">
+            <p class="question-text">Okay...</p>
+        </div>
+
+        <!-- Question 10 - First Image Display -->
+        <div class="question-container" id="q10">
+            <p class="question-text">Analyze the following image. It will not speak. Look at it closely.</p>
+            <div class="image-container">
+                <img src="https://static.wikia.nocookie.net/youtube/images/c/cf/John_baseball.png/revision/latest?cb=20241014153137" alt="Creepy figure">
+            </div>
+            <div class="timer" id="timer1"></div>
+        </div>
+
+        <!-- Question 11 - First Image Response -->
+        <div class="question-container" id="q11">
+            <p class="question-text">What did you notice about the image?</p>
+            <div class="answer-container">
+                <input type="text" class="text-input" id="image1-input" placeholder="Type your answer..." onkeydown="checkEnterImage1(event)">
+            </div>
+        </div>
+
+        <!-- Question 12 - Second Image Display -->
+        <div class="question-container" id="q12">
+            <p class="question-text">Analyze the following image. It will not move.</p>
+            <div class="image-container">
+                <img src="https://static.wikia.nocookie.net/youtube/images/f/fe/John_ATV.png/revision/latest?cb=20241014154137" alt="Another creepy image">
+            </div>
+            <div class="timer" id="timer2"></div>
+        </div>
+
+        <!-- Question 13 - Second Image Response -->
+        <div class="question-container" id="q13">
+            <p class="question-text">What did you notice about the image?</p>
+            <div class="answer-container">
+                <input type="text" class="text-input" id="image2-input" placeholder="Type your answer..." onkeyup="checkJumpscare()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Jumpscare -->
+    <div class="jumpscare" id="jumpscare">
+        <div class="jumpscare-bg" style="background-image: url('https://static.tvtropes.org/pmwiki/pub/images/maxresdefault_328.jpg');"></div>
+        <div class="jumpscare-text">WE KNOW WHAT YOU DID JOHN.</div>
+    </div>
+
+    <!-- Fullscreen button (backup in case auto fullscreen fails) -->
+    <button id="fullscreen-btn" onclick="toggleFullScreen()">ENTER FULLSCREEN</button>
+
+    <!-- Audio Element -->
+    <audio id="ambient-sound" loop>
+        <source src="bom.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 13;
+        let typewriterSpeed = 50; // milliseconds per character
+
+        // Start the sequence after page load
+        window.onload = function () {
+            // Request fullscreen immediately
+            requestFullScreen(document.documentElement);
+
+            // Play ambient sound
+            const ambientSound = document.getElementById('ambient-sound');
+            ambientSound.volume = 0.3; // Set volume to 30%
+
+            // Try to play the sound (may require user interaction first)
+            const playPromise = ambientSound.play();
+
+            // Handle potential play() failure
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Audio playback was prevented. Click anywhere to enable sound.");
+                    // Add click event to try playing again after user interaction
+                    document.addEventListener('click', function audioClickHandler() {
+                        ambientSound.play();
+                        document.removeEventListener('click', audioClickHandler);
+                    });
+                });
+            }
+
+            // Start the first question
+            showQuestion(1);
+        };
+
+        // Fullscreen functions
+        function requestFullScreen(element) {
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement &&
+                !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement &&
+                !document.msFullscreenElement) {
+                requestFullScreen(document.documentElement);
+            }
+        }
+
+        // Typewriter effect function
+        function typeWriter(element, text, speed, callback) {
+            let i = 0;
+            element.textContent = '';
+
+            function typing() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else if (callback) {
+                    callback();
+                }
+            }
+
+            typing();
+        }
+
+        function showQuestion(num) {
+            const questionContainer = document.getElementById(`q${num}`);
+            if (!questionContainer) return;
+
+            // Make the question container visible
+            questionContainer.classList.add('active');
+
+            // Find the text element in this container
+            const textElement = questionContainer.querySelector('.question-text');
+
+            // If there's text to animate
+            if (textElement && textElement.textContent) {
+                const originalText = textElement.textContent;
+
+                // Start typewriter effect
+                typeWriter(textElement, originalText, typewriterSpeed, function () {
+                    // After typing is complete, check if we should auto-proceed
+                    if (num === 1 || num === 2 || num === 9) {
+                        setTimeout(() => {
+                            hideQuestion(num);
+                            showQuestion(num + 1);
+                        }, 4000); // Wait 4 seconds after typing completes
+                    }
+                });
+
+                // If it's the first image question
+                if (num === 10) {
+                    const randomTime1 = Math.floor(Math.random() * 21) + 10; // Random time between 10-30 seconds
+                    let timeLeft1 = randomTime1;
+
+                    // Update timer display
+                    const timer1 = document.getElementById('timer1');
+                    timer1.textContent = `${timeLeft1}s`;
+
+                    // Start countdown
+                    const countdown1 = setInterval(() => {
+                        timeLeft1--;
+                        timer1.textContent = `${timeLeft1}s`;
+
+                        if (timeLeft1 <= 0) {
+                            clearInterval(countdown1);
+                            hideQuestion(num);
+                            showQuestion(num + 1);
+                        }
+                    }, 1000);
+                }
+
+                // If it's the second image question
+                if (num === 12) {
+                    const randomTime2 = Math.floor(Math.random() * 21) + 10; // Random time between 10-30 seconds
+                    let timeLeft2 = randomTime2;
+
+                    // Update timer display
+                    const timer2 = document.getElementById('timer2');
+                    timer2.textContent = `${timeLeft2}s`;
+
+                    // Start countdown
+                    const countdown2 = setInterval(() => {
+                        timeLeft2--;
+                        timer2.textContent = `${timeLeft2}s`;
+
+                        if (timeLeft2 <= 0) {
+                            clearInterval(countdown2);
+                            hideQuestion(num);
+                            showQuestion(num + 1);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        function hideQuestion(num) {
+            const question = document.getElementById(`q${num}`);
+            if (question) {
+                question.classList.remove('active');
+                question.style.opacity = 0;
+
+                // Wait for fade out transition
+                setTimeout(() => {
+                    question.style.display = 'none';
+                }, 2000);
+            }
+        }
+
+        function nextQuestion() {
+            hideQuestion(currentQuestion);
+            currentQuestion++;
+            setTimeout(() => {
+                showQuestion(currentQuestion);
+            }, 4000); // Increased delay to 4 seconds between questions
+        }
+
+        function checkEnterFear(e) {
+            if (e.key === 'Enter') {
+                const fearInput = document.getElementById('fear-input').value;
+                document.getElementById('fear-response').textContent = fearInput + " and alarms";
+                hideQuestion(currentQuestion);
+                currentQuestion++;
+                setTimeout(() => {
+                    showQuestion(currentQuestion);
+                }, 4000); // Increased delay to 4 seconds
+            }
+        }
+
+        function checkEnterImage1(e) {
+            if (e.key === 'Enter') {
+                nextQuestion();
+            }
+        }
+
+        function checkJumpscare() {
+            const input = document.getElementById('image2-input').value;
+            if (input.length >= 5) {
+                // Stop ambient sound
+                document.getElementById('ambient-sound').pause();
+
+                // Trigger jumpscare
+                const jumpscare = document.getElementById('jumpscare');
+                jumpscare.style.display = 'flex';
+
+                // Play jumpscare sound
+                const jumpscareAudio = new Audio('john.mp3');
+                jumpscareAudio.volume = 0.7;
+                jumpscareAudio.play().catch(e => console.log("Couldn't play jumpscare sound: ", e));
+
+                // Close the tab after 2 seconds
+                setTimeout(() => {
+                    window.close();
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>

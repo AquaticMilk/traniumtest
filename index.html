@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tranium Fan Page</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f2f5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #e93d60;
+            transition: color 0.3s;
+        }
+
+            a:hover {
+                color: #c02d4b;
+            }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #6b49ff, #e93d60);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .hero {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                margin-bottom: 1rem;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+
+        /* Navigation */
+        nav {
+            background-color: #252525;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+            nav ul {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            nav li {
+                margin: 0 1.5rem;
+            }
+
+            nav a {
+                color: white;
+                font-weight: 600;
+                font-size: 1.1rem;
+                padding: 0.5rem 0;
+                position: relative;
+            }
+
+                nav a:after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #e93d60;
+                    transition: width 0.3s ease;
+                }
+
+                nav a:hover:after {
+                    width: 100%;
+                }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+            h2:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: linear-gradient(90deg, #6b49ff, #e93d60);
+            }
+
+        /* About section */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 5px solid white;
+        }
+
+        /* Video Gallery */
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+            .video-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .video-thumbnail img {
+            width: 100%;
+            display: block;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+            .video-info h3 {
+                margin-bottom: 0.5rem;
+            }
+
+        /* Stats section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #6b49ff, #e93d60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            background-color: #333;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+            .social-btn:hover {
+                background-color: #e93d60;
+                color: white;
+                transform: translateY(-3px);
+            }
+
+        /* Creepy button */
+        .abyss-btn {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #000;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #333;
+            transition: all 0.5s;
+            font-family: 'Times New Roman', serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+            .abyss-btn:hover {
+                background-color: #111;
+                color: #ff0000;
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+                transform: scale(1.05);
+                letter-spacing: 3px;
+            }
+
+        /* Footer */
+        footer {
+            background-color: #252525;
+            color: #fff;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .disclaimer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.5rem 0;
+            }
+
+            .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            h2:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <h1>TRANIUM</h1>
+            <p>The ultimate fan page for Tranium's amazing content!</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#videos">Popular Videos</a></li>
+            <li><a href="#stats">Channel Stats</a></li>
+            <li><a href="#social">Social Media</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="about">
+            <h2>About Tranium</h2>
+            <div class="about-content">
+                <img src="https://yt3.googleusercontent.com/IJMTMy8wE-kySvjlFv5xtL_p4tEvIXwfiGfqFem81TZ-kmcVOwY8yPgbxOwNbIjAWWvc95VwWQ=s160-c-k-c0x00ffffff-no-rj" alt="Tranium" class="profile-img">
+                <div>
+                    <p>Tranium (real name John) is an American gaming and variety YouTuber known for his Funny Moments and VRChat videos, amassing a community of over 1.23 million subscribers worldwide.</p>
+                    <p>He created his channel on April 7, 2012, but didn't upload his first video until September of that year, quickly rising to fame with comedic gameplay highlights.</p>
+                    <p>JOHN is based in Austin, Texas, and frequently collaborates with peers like Crispy Concords(🤤), Soup(is love, soup is life) to make content.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos">
+            <h2>Popular Videos</h2>
+            <div class="videos">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/oeyK1BasHXc/0.jpg" alt="THESE PEOPLE AREN'T NORMAL - VRChat Funny Moments">
+                    </div>
+                    <div class="video-info">
+                        <h3>THESE PEOPLE AREN'T NORMAL - VRChat Funny Moments</h3>
+                        <p>Tranium encounters some interesting characters in VRChat in this iconic video.</p>
+                        <p><strong>Views:</strong> 2.5 M</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/hRRx3RKh4zg/0.jpg" alt="Black Ops 3 Funny Moments - Dark Matter Camo, Wrench, Pancake Sunday!">
+                    </div>
+                    <div class="video-info">
+                        <h3>Black Ops 3 Funny Moments - Dark Matter Camo, Wrench, Pancake Sunday!</h3>
+                        <p>An early breakout video showcasing Tranium's funniest Black Ops 3 moments.</p>
+                        <p><strong>Views:</strong> 786 K</p>
+                    </div>
+                </div>
+
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/-5jjWtiaN3k/0.jpg" alt="If I Laugh, I'll Install Malware.. (they're bad)">
+                    </div>
+                    <div class="video-info">
+                        <h3>If I Laugh, I Install Malware.. (They're Bad)</h3>
+                        <p>Tranium reacts to memes—one laugh means one virus installed!</p>
+                        <p><strong>Views:</strong> 593 K</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats">
+            <h2>Channel Stats</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">1.23 M</div>
+                    <p>Subscribers</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">637</div>
+                    <p>Videos</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">153.9 M</div>
+                    <p>Total Views</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">April 7, 2012</div>
+                    <p>Channel Created</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="social">
+            <h2>Connect with Tranium</h2>
+            <p>Follow Tranium across social media platforms to stay updated with the latest news, behind-the-scenes content, and announcements!</p>
+
+            <div class="social-links">
+                <a href="https://www.youtube.com/Tranium" class="social-btn">YouTube</a>
+                <a href="https://www.instagram.com/tranium" class="social-btn">Instagram (34 K followers)</a>
+                <a href="https://twitter.com/Tranium" class="social-btn">X @Tranium</a>
+                <a href="https://www.twitch.tv/tranium" class="social-btn">Twitch</a>
+                <a href="https://www.tiktok.com/@tranium" class="social-btn">TikTok</a>
+            </div>
+
+            <a href="abyss.html" class="abyss-btn">enter the all-consuming abyss.</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Tranium Fan Page</h3>
+            <p>Created with ❤️ by a devoted fan</p>
+
+            <div class="disclaimer">
+                <p>This is an unofficial fan page. All content belongs to Tranium.</p>
+                <p>&copy; 2025 Tranium Fan Page. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
